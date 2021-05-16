@@ -1,0 +1,37 @@
+﻿@model lab2.Models.module
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3 class="pt-2">Modulio ištrinimo patvirtinimas</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Modulio kodas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.ModuleCode)
+        </dd>
+
+        <dt>
+            Modulio pavadinimas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.ModuleTitle)
+        </dd>
+
+    </dl>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="submit" class="btn btn-danger">Ištrinti modulį</button>
+            @Html.ActionLink("Grįžti atgal", "Index")
+        </div>
+    }
+</div>

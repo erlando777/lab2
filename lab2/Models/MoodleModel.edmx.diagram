@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="40cd6e771e9347e390fb4395d838adcc" Name="Diagram1">
+        <EntityTypeShape EntityType="LabaratorinisDBModel.lecture" Width="1.5" PointX="3.375" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabaratorinisDBModel.module" Width="1.5" PointX="0.875" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabaratorinisDBModel.studentModule" Width="1.5" PointX="3.375" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LabaratorinisDBModel.student" Width="1.5" PointX="6.125" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="LabaratorinisDBModel.FK_lectures_modules" ManuallyRouted="false" />
+        <AssociationConnector Association="LabaratorinisDBModel.FK_studentModule_modules" ManuallyRouted="false" />
+        <AssociationConnector Association="LabaratorinisDBModel.FK_studentModule_students" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LabaratorinisDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="lectures">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+          <Property Name="LectureTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="LectureActivity" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="modules">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModuleCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="ModuleTitle" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="studentModule">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentID" Type="int" Nullable="false" />
+          <Property Name="ModuleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="students">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StudentName" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudentSurname" Type="nvarchar" MaxLength="50" />
+          <Property Name="StudentGroup" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_lectures_modules">
+          <End Role="modules" Type="Self.modules" Multiplicity="1" />
+          <End Role="lectures" Type="Self.lectures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="lectures">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentModule_modules">
+          <End Role="modules" Type="Self.modules" Multiplicity="1" />
+          <End Role="studentModule" Type="Self.studentModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="studentModule">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentModule_students">
+          <End Role="students" Type="Self.students" Multiplicity="1" />
+          <End Role="studentModule" Type="Self.studentModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="studentModule">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LabaratorinisDBModelStoreContainer">
+          <EntitySet Name="lectures" EntityType="Self.lectures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="modules" EntityType="Self.modules" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="studentModule" EntityType="Self.studentModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="students" EntityType="Self.students" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_lectures_modules" Association="Self.FK_lectures_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="lectures" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentModule_modules" Association="Self.FK_studentModule_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="studentModule" EntitySet="studentModule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentModule_students" Association="Self.FK_studentModule_students">
+            <End Role="students" EntitySet="students" />
+            <End Role="studentModule" EntitySet="studentModule" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LabaratorinisDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="lecture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <Property Name="LectureTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LectureActivity" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="module" Relationship="Self.FK_lectures_modules" FromRole="lectures" ToRole="modules" />
+        </EntityType>
+        <EntityType Name="module">
+          <Key>
+            <PropertyRef Name="ModuleID" />
+          </Key>
+          <Property Name="ModuleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModuleCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ModuleTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="lectures" Relationship="Self.FK_lectures_modules" FromRole="modules" ToRole="lectures" />
+          <NavigationProperty Name="studentModules" Relationship="Self.FK_studentModule_modules" FromRole="modules" ToRole="studentModule" />
+        </EntityType>
+        <EntityType Name="studentModule">
+          <Key>
+            <PropertyRef Name="ConnectionID" />
+          </Key>
+          <Property Name="ConnectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentID" Type="Int32" Nullable="false" />
+          <Property Name="ModuleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="module" Relationship="Self.FK_studentModule_modules" FromRole="studentModule" ToRole="modules" />
+          <NavigationProperty Name="student" Relationship="Self.FK_studentModule_students" FromRole="studentModule" ToRole="students" />
+        </EntityType>
+        <EntityType Name="student">
+          <Key>
+            <PropertyRef Name="StudentID" />
+          </Key>
+          <Property Name="StudentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentSurname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="StudentGroup" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="studentModules" Relationship="Self.FK_studentModule_students" FromRole="students" ToRole="studentModule" />
+        </EntityType>
+        <Association Name="FK_lectures_modules">
+          <End Role="modules" Type="Self.module" Multiplicity="1" />
+          <End Role="lectures" Type="Self.lecture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="lectures">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentModule_modules">
+          <End Role="modules" Type="Self.module" Multiplicity="1" />
+          <End Role="studentModule" Type="Self.studentModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modules">
+              <PropertyRef Name="ModuleID" />
+            </Principal>
+            <Dependent Role="studentModule">
+              <PropertyRef Name="ModuleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_studentModule_students">
+          <End Role="students" Type="Self.student" Multiplicity="1" />
+          <End Role="studentModule" Type="Self.studentModule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="students">
+              <PropertyRef Name="StudentID" />
+            </Principal>
+            <Dependent Role="studentModule">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LabaratorinisDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="lectures" EntityType="Self.lecture" />
+          <EntitySet Name="modules" EntityType="Self.module" />
+          <EntitySet Name="studentModules" EntityType="Self.studentModule" />
+          <EntitySet Name="students" EntityType="Self.student" />
+          <AssociationSet Name="FK_lectures_modules" Association="Self.FK_lectures_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="lectures" EntitySet="lectures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentModule_modules" Association="Self.FK_studentModule_modules">
+            <End Role="modules" EntitySet="modules" />
+            <End Role="studentModule" EntitySet="studentModules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_studentModule_students" Association="Self.FK_studentModule_students">
+            <End Role="students" EntitySet="students" />
+            <End Role="studentModule" EntitySet="studentModules" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LabaratorinisDBModelStoreContainer" CdmEntityContainer="LabaratorinisDBEntities1">
+          <EntitySetMapping Name="lectures">
+            <EntityTypeMapping TypeName="LabaratorinisDBModel.lecture">
+              <MappingFragment StoreEntitySet="lectures">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="LectureTitle" ColumnName="LectureTitle" />
+                <ScalarProperty Name="LectureActivity" ColumnName="LectureActivity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modules">
+            <EntityTypeMapping TypeName="LabaratorinisDBModel.module">
+              <MappingFragment StoreEntitySet="modules">
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+                <ScalarProperty Name="ModuleCode" ColumnName="ModuleCode" />
+                <ScalarProperty Name="ModuleTitle" ColumnName="ModuleTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="studentModules">
+            <EntityTypeMapping TypeName="LabaratorinisDBModel.studentModule">
+              <MappingFragment StoreEntitySet="studentModule">
+                <ScalarProperty Name="ConnectionID" ColumnName="ConnectionID" />
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="ModuleID" ColumnName="ModuleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="students">
+            <EntityTypeMapping TypeName="LabaratorinisDBModel.student">
+              <MappingFragment StoreEntitySet="students">
+                <ScalarProperty Name="StudentID" ColumnName="StudentID" />
+                <ScalarProperty Name="StudentName" ColumnName="StudentName" />
+                <ScalarProperty Name="StudentSurname" ColumnName="StudentSurname" />
+                <ScalarProperty Name="StudentGroup" ColumnName="StudentGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

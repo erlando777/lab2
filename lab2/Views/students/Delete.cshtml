@@ -1,0 +1,45 @@
+﻿@model lab2.Models.student
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="pt-2">Studento ištrinimas</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Studento vardas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+           Studento pavardė
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentSurname)
+        </dd>
+
+        <dt>
+            Studento grupė
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentGroup)
+        </dd>
+
+    </dl>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+<div class="form-actions no-color">
+    <button type="submit" class="btn btn-danger">Ištrinti studentą</button> |
+    @Html.ActionLink("Grįžti atgal", "Index")
+</div>
+    }
+</div>

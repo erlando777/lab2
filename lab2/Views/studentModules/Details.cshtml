@@ -1,0 +1,46 @@
+﻿@model lab2.Models.studentModule
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="pt-2">Studentas ir jo modulis</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Modulio kodas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleCode)
+        </dd>
+        <dt>
+            Modulis
+        </dt>
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleTitle)
+        </dd>
+
+        <dt>
+            Studento vardas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.student.StudentName)
+        </dd>
+        <dt>
+            Studento pavardė
+        </dt>
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.student.StudentSurname)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Koreguoti", "Edit", new { id = Model.ConnectionID }) |
+    @Html.ActionLink("Grįžti atgal", "Index")
+</p>

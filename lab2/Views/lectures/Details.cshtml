@@ -1,0 +1,47 @@
+﻿@model lab2.Models.lecture
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="pt-2">Paskaitos informacija</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Paskaitos pavadinimas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.LectureTitle)
+        </dd>
+
+        <dt>
+           Paskaitos veikla/uždaviniai
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.LectureActivity)
+        </dd>
+        <dt>
+            Modulio kodas
+        </dt>
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleCode)
+        </dd>
+        <dt>
+            Modulis
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleTitle)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Koreguoti", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Grįžti atgal", "Index")
+</p>

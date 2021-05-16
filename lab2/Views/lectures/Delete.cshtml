@@ -1,0 +1,46 @@
+﻿@model lab2.Models.lecture
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="pt-2">Paskaitos ištrinimas</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Paskaitos pavadinimas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.LectureTitle)
+        </dd>
+
+        <dt>
+            Paskaitos veikla/uždaviniai
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.LectureActivity)
+        </dd>
+
+        <dt>
+            Modulis
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleCode)
+        </dd>
+
+    </dl>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <button type="submit" class="btn btn-danger">Ištrinti paskaitą</button> |
+            @Html.ActionLink("Grįžti atgal", "Index")
+        </div>
+    }
+</div>

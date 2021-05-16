@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<div class="pt-2">
+    <div class="jumbotron">
+        <h1>Studentai ir jų moduliai.</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h2>@Html.ActionLink("Studentai", "Index", "students", null, new { Style= "color:#40a697" })</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>@Html.ActionLink("Moduliai", "Index", "modules", null, new { Style = "color:#40a697" })</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>@Html.ActionLink("Paskaitos", "Index", "lectures", null, new { Style = "color:#40a697" })</h2>
+    </div>
+    <div class="col-md-3">
+        <h2>@Html.ActionLink("Studento ir modulio ryšys", "Index", "studentModules", null, new { Style = "color:#40a697" })</h2>
+    </div>
+</div>

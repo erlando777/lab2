@@ -1,0 +1,50 @@
+﻿@model lab2.Models.studentModule
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="pt-2">Studento modulio pašalinimas</h2>
+
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Modulio kodas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleCode)
+        </dd>
+        <dt>
+            Modulio pavadinimas
+        </dt>
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.module.ModuleTitle)
+        </dd>
+        <dt>
+           Studento vardas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.student.StudentName)
+        </dd>
+        <dt>
+            Studento pavardė   
+        </dt>
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.student.StudentSurname)
+        </dd>
+
+    </dl>
+    <hr />
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <button type="submit" class="btn btn-danger">Ištrinti studento modulį</button> |
+        @Html.ActionLink("Grįžti atgal", "Index")
+    </div>
+    }
+</div>

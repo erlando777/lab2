@@ -1,0 +1,52 @@
+﻿@model IEnumerable<lab2.Models.lecture>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="pt-2">Modulių paskaitos</h2>
+
+<p class="border rounded bg-light px-1" style="width:119px">
+    @Html.ActionLink("Pridėti paskaitą", "Create", null, new { Style = "color:green;text-decoration:none" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+           Paskaita
+        </th>
+        <th>
+            Paskaitos tikslas/uždaviniai
+        </th>
+        <th>
+           Modulio kodas
+        </th>
+        <th>Modulis</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LectureTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LectureActivity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.module.ModuleCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelITem => item.module.ModuleTitle)
+            </td>
+            <td>
+                @Html.ActionLink("Koreguoti", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Informacija", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Ištrinti", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+<hr />
+@Html.ActionLink("Pradžia", "Index", "Home")

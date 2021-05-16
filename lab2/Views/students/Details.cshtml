@@ -1,0 +1,42 @@
+﻿@model lab2.Models.student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2 class="pt-2">Studento informacija</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Studento vardas
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentName)
+        </dd>
+
+        <dt>
+            Studento pavardė
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentSurname)
+        </dd>
+
+        <dt>
+           Studento grupė
+        </dt>
+
+        <dd class="px-1">
+            @Html.DisplayFor(model => model.StudentGroup)
+        </dd>
+
+    </dl>
+</div>
+<hr />
+<p>
+    @Html.ActionLink("Koreguoti", "Edit", new { id = Model.StudentID }) |
+    @Html.ActionLink("Grįžti atgal", "Index")
+</p>
